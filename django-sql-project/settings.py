@@ -33,14 +33,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-r+$45&sm1im6(9a@dgmt7en0*v5w4p$j_$3+ohx!bay6pj%2d5'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #STATIC_URL = '/static/'
 #STATIC_ROOT = 'static'
 
 # SECURITY WARNING: In production, allow only those domains which you trust.
+
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net']
 CORS_ALLOW_ALL_ORIGINS: True
@@ -103,6 +106,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'PORT': '1433',
+        'NAME': "SPIDER_SQL",
+        'USER': "sqladmin-newlin",
+        'PASSWORD': "BDiB2022!",
+        'HOST': "spider-sql.database.windows.net,1433",
         'OPTIONS':
         {
             'driver': "ODBC Driver 18 for SQL Server",
