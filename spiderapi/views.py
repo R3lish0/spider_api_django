@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 #from django.http import HttpResponse
 
-from spiderapi.models import Fields,Farms,Owners,Crops
-from spiderapi.serializers import FieldsSerializer,FarmsSerializer, OwnersSerializer, CropsSerializer
+from spiderapi.models import Fields,Farms,Owners,Crops,Tests,Harvests,Seeds,Inputs
+from spiderapi.serializers import FieldsSerializer,FarmsSerializer, OwnersSerializer, CropsSerializer, SeedsSerializer, HarvestsSerializer, TestsSerializer, InputsSerializer
 
 
 # Create your views here.
@@ -133,7 +133,7 @@ def CropsAPI (request, id=0):
         crops.delete()
         return JsonResponse("Record Deleted Successfully",safe=False)
 
-csrf_exempt
+@csrf_exempt
 def GetFarmsAPI (request, frmId=0, ownId=0):
     if (request.method=='GET' and int(frmId) > 0 and int(ownId) == 0):
         farms=Farms.objects.filter(id=frmId)
@@ -148,7 +148,19 @@ def GetFarmsAPI (request, frmId=0, ownId=0):
         farms_serializer=FarmsSerializer(farms,many=True)
         return JsonResponse(farms_serializer.data,safe=False)
 
-csrf_exempt
+@csrf_exempt
+def GetFieldsAPI (request, ownId=0):
+    if (request.method=='GET' and int(ownId) == 0):
+        owners=Owners.objects.filter(id=ownId)
+        owners_serializer=OwnersSerializer(owners, many=True)
+        return JsonResponse(owners_serializer.data,safe=False)
+    elif (request.method=='GET'):
+        owners = Owners.objects.all()
+        owners_serializer=OwnersSerializer(owners,many=True)
+        return JsonResponse(owners_serializer.data,safe=False)
+
+
+@csrf_exempt
 def GetFieldsAPI (request, fldId = 0, frmId=0, ownId=0):
     if (request.method=='GET' and int(fldId) > 0 and int(frmId) == 0 and int(ownId) == 0):
         fields=Fields.objects.filter(id=fldId)
@@ -167,7 +179,7 @@ def GetFieldsAPI (request, fldId = 0, frmId=0, ownId=0):
         fields_serializer=FieldsSerializer(fields,many=True)
         return JsonResponse(fields_serializer.data,safe=False)
 
-csrf_exempt
+@csrf_exempt
 def GetCropsAPI (request, crpId=0, fldId=0, frmId=0, ownId=0):
     if (request.method=='GET' and int(crpId) > 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) == 0):
         crops=Crops.objects.filter(id=crpId)
@@ -190,3 +202,91 @@ def GetCropsAPI (request, crpId=0, fldId=0, frmId=0, ownId=0):
         crops_serializer=CropsSerializer(crops,many=True)
         return JsonResponse(crops_serializer.data,safe=False)
     
+
+@csrf_exempt
+def GetHarvestsAPI (request, hrvstId=0, crpId=0, fldId=0, frmId=0, ownId=0):
+    if (request.method=='GET' and int(hrvstId) > 0 and int(crpId) == 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) == 0):
+        harvests=Harvests.objects.filter(id=hrvstId)
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+    elif (request.method=='GET' and int(hrvstId) == 0 and int(crpId) > 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) == 0):
+        harvests=Harvests.objects.filter(cropId=crpId)
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+        return JsonResponse(harvests_serializer.data,safe=False)
+    elif (request.method=='GET' and int(hrvstId) == 0 and int(crpId) == 0 and int(fldId) > 0 and int(frmId) == 0 and int(ownId) == 0):
+        harvests=Harvests.objects.filter(fieldId=fldId)
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+        return JsonResponse(harvests_serializer.data,safe=False)
+    elif (request.method=='GET' and int(hrvstId) == 0 and int(crpId) == 0 and int(fldId) == 0 and int(frmId) > 0 and int(ownId) == 0):
+        harvests=Harvests.objects.filter(farmId=frmId)
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+        return JsonResponse(harvests_serializer.data,safe=False)
+    elif (request.method=='GET' and int(hrvstId) == 0 and int(crpId) == 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) > 0):
+        harvests=Harvests.objects.filter(owner=ownId)
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+        return JsonResponse(harvests_serializer.data,safe=False)
+    elif (request.method=='GET'):
+        harvests=Harvests.objects.all()
+        harvests_serializer=HarvestsSerializer(harvests, many=True)
+        return JsonResponse(harvests_serializer.data,safe=False)
+
+
+@csrf_exempt
+def GetTestsAPI (request, tstId = 0, frmId=0, ownId=0):
+    if (request.method=='GET' and int(tstId) > 0 and int(frmId) == 0 and int(ownId) == 0):
+        tests=Tests.objects.filter(id=tstId)
+        tests_serializer=TestsSerializer(tests, many=True)
+        return JsonResponse(tests_serializer.data,safe=False)
+    elif (request.method=='GET' and int(tstId) == 0 and int(frmId) > 0 and int(ownId) == 0):
+        tests=Tests.objects.filter(Farmid=frmId)
+        tests_serializer=TestsSerializer(tests, many=True)
+        return JsonResponse(tests_serializer.data,safe=False)
+    elif (request.method=='GET' and int(tstId) == 0 and int(frmId) == 0 and int(ownId) > 0):
+        tests=Tests.objects.filter(ownerId=ownId)
+        tests_serializer=TestsSerializer(tests, many=True)
+        return JsonResponse(tests_serializer.data,safe=False)
+    elif (request.method=='GET'):
+        tests = Farms.objects.all()
+        tests_serializer=TestsSerializer(tests, many=True)
+        return JsonResponse(tests_serializer.data,safe=False)
+
+@csrf_exempt
+def GetSeedsAPI (request, sdsId = 0, frmId=0, ownId=0):
+    if (request.method=='GET' and int(sdsId) > 0 and int(frmId) == 0 and int(ownId) == 0):
+        seeds=Seeds.objects.filter(id=sdsId)
+        seeds_serializer=SeedsSerializer(seeds, many=True)
+        return JsonResponse(seeds_serializer.data,safe=False)
+    elif (request.method=='GET' and int(sdsId) == 0 and int(frmId) > 0 and int(ownId) == 0):
+        seeds=Seeds.objects.filter(farmId=frmId)
+        seeds_serializer=SeedsSerializer(seeds, many=True)
+        return JsonResponse(seeds_serializer.data,safe=False)
+    elif (request.method=='GET' and int(sdsId) == 0 and int(frmId) == 0 and int(ownId) > 0):
+        seeds=Seeds.objects.filter(ownerId=ownId)
+        seeds_serializer=SeedsSerializer(seeds, many=True)
+        return JsonResponse(seeds_serializer.data,safe=False)
+    elif (request.method=='GET'):
+        seeds = Seeds.objects.all()
+        seeds_serializer=SeedsSerializer(seeds,many=True)
+        return JsonResponse(seeds_serializer.data,safe=False)
+
+@csrf_exempt
+def GetInputsAPI (request, inpId=0, fldId=0, frmId=0, ownId=0):
+    if (request.method=='GET' and int(inpId) > 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) == 0):
+        inputs=Inputs.objects.filter(id=inpId)
+        inputs_serializer=InputsSerializer(inputs, many=True)
+        return JsonResponse(inputs_serializer.data,safe=False)
+    if (request.method=='GET' and int(inpId) == 0 and int(fldId) > 0 and int(frmId) == 0 and int(ownId) == 0):
+        inputs=Inputs.objects.filter(fieldId=fldId)
+        inputs_serializer=InputsSerializer(inputs, many=True)
+        return JsonResponse(inputs_serializer.data,safe=False)
+    elif (request.method=='GET' and int(inpId) == 0 and int(fldId) == 0 and int(frmId) > 0 and int(ownId) == 0):
+        inputs=Inputs.objects.filter(farmId=frmId)
+        inputs_serializer=InputsSerializer(inputs, many=True)
+        return JsonResponse(inputs_serializer.data,safe=False)
+    elif (request.method=='GET'and int(inpId) == 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) > 0):
+        inputs=Inputs.objects.filter(ownerId=ownId)
+        inputs_serializer=InputsSerializer(inputs, many=True)
+        return JsonResponse(inputs_serializer.data,safe=False)
+    elif (request.method=='GET'):
+        inputs = Inputs.objects.all()
+        inputs_serializer=InputsSerializer(inputs,many=True)
+        return JsonResponse(inputs_serializer.data,safe=False)

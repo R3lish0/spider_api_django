@@ -20,6 +20,9 @@ urlpatterns=[
     re_path(r'^Crops/?$', views.CropsAPI),
     re_path(r'^Crops/([0-9]+)/?$', views.CropsAPI, name='Crops'),
 
+    re_path(r'^Owners/?$', views.OwnersAPI),
+    re_path(r'^Owners/([0-9]+)/?$', views.OwnersAPI, name='Owners'),
+
     re_path(r'^GetFarms/?$', views.GetFarmsAPI),
     re_path(r'^GetFarms/([0-9]+)/?$', views.GetFarmsAPI, name='Farms'),
     re_path(r'^GetFarms/([0-9]+)/([0-9])+/?$', views.GetFarmsAPI, name='Farms'),
@@ -33,5 +36,32 @@ urlpatterns=[
     re_path(r'^GetCrops/([0-9]+)/?$', views.GetCropsAPI, name='Crops'),
     re_path(r'^GetCrops/([0-9]+)/([0-9]+)/?$', views.GetCropsAPI, name='Crops'),
     re_path(r'^GetCrops/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetCropsAPI, name='Crops'),
-    re_path(r'^GetCrops/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetCropsAPI, name='Crops')
+    re_path(r'^GetCrops/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetCropsAPI, name='Crops'),
+
+    re_path(r'^GetInputs/?$', views.GetInputsAPI),
+    re_path(r'^GetInputs/([0-9]+)/?$', views.GetInputsAPI, name='Inputs'),
+    re_path(r'^GetInputs/([0-9]+)/([0-9]+)/?$', views.GetInputsAPI, name='Inputs'),
+    re_path(r'^GetInputs/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetInputsAPI, name='Inputs'),
+    re_path(r'^GetInputs/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetInputsAPI, name='Inputs'),
+
+    re_path(r'^GetSeeds/?$', views.GetSeedsAPI),
+    re_path(r'^GetSeeds/([0-9]+)/?$', views.GetSeedsAPI, name='Seeds'),
+    re_path(r'^GetSeeds/([0-9]+)/([0-9]+)/?$', views.GetSeedsAPI, name='Seeds'),
+    re_path(r'^GetSeeds/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetSeedsAPI, name='Seeds'),
+
+
+    re_path(r'^GetTests/?$', views.GetTestsAPI),
+    re_path(r'^GetTests/([0-9]+)/?$', views.GetTestsAPI, name='Tests'),
+    re_path(r'^GetTests/([0-9]+)/([0-9]+)/?$', views.GetTestsAPI, name='Tests'),
+    re_path(r'^GetTests/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetTestsAPI, name='Tests'),
+
+
+    re_path(r'^GetHarvests/?$', views.GetHarvestsAPI),
+    re_path(r'^GetHarvests/([0-9]+)/?$', views.GetHarvestsAPI, name='Harvests'),
+    re_path(r'^GetHarvests/([0-9]+)/([0-9]+)/?$', views.GetHarvestsAPI, name='Harvests'),
+    re_path(r'^GetHarvests/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetHarvestsAPI, name='Harvests'),
+    re_path(r'^GetHarvests/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/?$', views.GetHarvestsAPI, name='Harvests')
+
+
+
 ]

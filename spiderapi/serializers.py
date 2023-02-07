@@ -1,7 +1,7 @@
 #Serializer for converting complex objects into native Python datatypes and deserialize parsed data back into complex types
 
 from rest_framework import serializers
-from spiderapi.models import Owners,Farms,Fields,Crops
+from spiderapi.models import Owners,Farms,Fields,Crops,Inputs,Harvests,Seeds,Tests
 
 class OwnersSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +25,28 @@ class CropsSerializer(serializers.ModelSerializer):
         fields=('id','ownerId','farmId','fieldId','cropType','datePlanted','amountPlanted')
 
 
+class InputsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Inputs 
+        fields=('id','ownerId','farmID','fieldId','input','manufacturer','date','time','purpose','applicator','windSpeed','windDirection','equipmentUsed','isApproved','msds','other')
+
+
+class HarvestsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Harvests 
+        fields=('id','ownerId','farmId','fieldId','cropId','harvestMethod','harvestCrew','equipmentCleanup','harvestYield','produceCleanup','storage','transportation','soldAmount','leftOverAmount','saleReceipt')
+
+
+class SeedsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Seeds 
+        fields=('id','ownerId','farmId','seedName','variety','sourceOne','sourceTwo','sourceThree','org','treatment','plantingDate','location','plantingCrew')
+
+
+class TestsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Tests
+        fields=('id','ownerId','farmId','testingVariable','numSamples','collectionDate','location','testingCompany','resultDate','resultsSaved')
 
         
   
