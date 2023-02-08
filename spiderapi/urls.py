@@ -20,8 +20,8 @@ urlpatterns=[
     re_path(r'^Crops/?$', views.CropsAPI),
     re_path(r'^Crops/([0-9]+)/?$', views.CropsAPI, name='Crops'),
 
-    re_path(r'^Owners/?$', views.OwnersAPI),
-    re_path(r'^Owners/([0-9]+)/?$', views.OwnersAPI, name='Owners'),
+    re_path(r'^GetOwners/?$', views.OwnersAPI),
+    re_path(r'^GetOwners/([0-9]+)/?$', views.OwnersAPI, name='Owners'),
 
     re_path(r'^GetFarms/?$', views.GetFarmsAPI),
     re_path(r'^GetFarms/([0-9]+)/?$', views.GetFarmsAPI, name='Farms'),
