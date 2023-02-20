@@ -243,7 +243,7 @@ def HarvestsAPI (request, hrvstId=0, crpId=0, fldId=0, frmId=0, ownId=0):
         return JsonResponse("Record Deleted Successfully",safe=False)
 
 @csrf_exempt
-def GetTestsAPI (request, tstId = 0, frmId=0, ownId=0):
+def TestsAPI (request, tstId = 0, frmId=0, ownId=0):
     if (request.method=='GET' and int(tstId) > 0 and int(frmId) == 0 and int(ownId) == 0):
         tests=Tests.objects.filter(id=tstId)
         tests_serializer=TestsSerializer(tests, many=True)
@@ -293,7 +293,7 @@ def GetTestsAPI (request, tstId = 0, frmId=0, ownId=0):
         return JsonResponse("Record Deleted Successfully",safe=False)
 
 @csrf_exempt
-def GetSeedsAPI (request, sdsId = 0, frmId=0, ownId=0):
+def SeedsAPI (request, sdsId = 0, frmId=0, ownId=0):
     if (request.method=='GET' and int(sdsId) > 0 and int(frmId) == 0 and int(ownId) == 0):
         seeds=Seeds.objects.filter(id=sdsId)
         seeds_serializer=SeedsSerializer(seeds, many=True)
@@ -342,7 +342,7 @@ def GetSeedsAPI (request, sdsId = 0, frmId=0, ownId=0):
         return JsonResponse("Record Deleted Successfully",safe=False)
 
 @csrf_exempt
-def GetInputsAPI (request, inpId=0, fldId=0, frmId=0, ownId=0):
+def InputsAPI (request, inpId=0, fldId=0, frmId=0, ownId=0):
     if (request.method=='GET' and int(inpId) > 0 and int(fldId) == 0 and int(frmId) == 0 and int(ownId) == 0):
         inputs=Inputs.objects.filter(id=inpId)
         inputs_serializer=InputsSerializer(inputs, many=True)
