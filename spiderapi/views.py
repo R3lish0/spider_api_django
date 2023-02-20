@@ -15,7 +15,7 @@ from spiderapi.serializers import FieldsSerializer,FarmsSerializer, OwnersSerial
 
 @csrf_exempt
 def OwnersAPI (request, ownId=0):
-    if (request.method=='GET' and int(id) > 0):
+    if (request.method=='GET' and int(ownId) > 0):
         owners=Owners.objects.filter(id=ownId)
         owners_serializer=OwnersSerializer(owners, many=True)
         return JsonResponse(owners_serializer.data,safe=False)
